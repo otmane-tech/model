@@ -12,11 +12,9 @@ services:
       - MOODLE_DATABASE_USER=bn_moodle
       - MOODLE_DATABASE_NAME=bitnami_moodle
     volumes:
-      - 'moodle_data:/bitnami/moodle'
+      - moodle_data:/bitnami/moodle
     depends_on:
       - mariadb
-    networks:
-      - moodle-network
 
   mariadb:
     image: 'bitnami/mariadb:10.6'
@@ -25,16 +23,8 @@ services:
       - MARIADB_DATABASE=bitnami_moodle
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - 'mariadb_data:/bitnami/mariadb'
-    networks:
-      - moodle-network
+      - mariadb_data:/bitnami/mariadb
 
 volumes:
   mariadb_data:
-    driver: local
   moodle_data:
-    driver: local
-
-networks:
-  moodle-network:
-    driver: bridge
